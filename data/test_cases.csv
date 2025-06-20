@@ -1,0 +1,7 @@
+id,test_case
+1,Check if emergency stop is triggered when overheat sensor exceeds limit.
+2,Verify digital output signal when start button is pressed.
+3,Test Ethernet connection between PLC and HMI.
+4,Ensure PLC communication resumes after restart.
+5,Check response when the safety lock is disengaged.
+

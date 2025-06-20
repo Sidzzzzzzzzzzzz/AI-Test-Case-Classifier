@@ -1,0 +1,11 @@
+test_case
+Check if emergency stop is triggered when over-temperature is detected.
+Verify digital output signal when start button is pressed.
+Test Ethernet connection between PLC and HMI.
+Ensure PLC communication resumes after restart.
+Check response when the safety lock is disengaged.
+Test manual override function in maintenance mode.
+Validate alarm trigger on pressure drop.
+Ensure fail-safe mode activates on sensor failure.
+Monitor cycle time deviation beyond threshold.
+Inspect behavior when power is lost and restored.

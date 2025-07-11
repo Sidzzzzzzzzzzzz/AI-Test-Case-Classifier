@@ -21,7 +21,7 @@ Built with Python, this project features an interactive **Streamlit web app** an
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 - **Python 3.10+**
 - **scikit-learn** – for LDA topic modeling  

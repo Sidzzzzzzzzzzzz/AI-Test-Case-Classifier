@@ -3,33 +3,21 @@ from src.preprocessing import clean_text
 from src.lda_model import apply_lda_sklearn
 from src.graph_builder import build_graph
 
-print("🔧 Setting up AI Test Case Classifier...")
+if __name__ == "__main__":
+    # Example local run with sample cases (for testing only)
+    test_cases = [
+        "Check if emergency stop is triggered when overheating",
+        "Verify digital output signal when start button is pressed",
+        "Test Ethernet connection between PLC and HMI",
+        "Ensure PLC communication resumes after restart",
+        "Check response when the safety lock is disengaged"
+    ]
 
-# Load test cases
-df = pd.read_csv("data/test_cases.csv")
+    df = pd.DataFrame({"test_case": test_cases})
+    df["clean_text"] = df["test_case"].apply(clean_text)
 
-# Clean text
-df["clean_text"] = df["test_case"].apply(clean_text)
-df.dropna(subset=["clean_text"], inplace=True)
+    topics, topic_ids = apply_lda_sklearn(df["clean_text"])
+    df["topic_id"] = topic_ids
 
-# Apply LDA
-print("🧠 Applying LDA Topic Modeling...")
-topics, topic_ids = apply_lda_sklearn(df["clean_text"])
-df["topic_id"] = topic_ids
-
-# Show topics
-print("\n📚 Topics Discovered:")
-for idx, words in topics:
-    print(f"Topic {idx}: {', '.join(words)}")
-
-# Show sample result
-print("\n📝 Test Cases with Assigned Topics:")
-print(df[["test_case", "topic_id"]].head())
-
-# Build interactive graph
-print("\n🌐 Building interactive topic graph...")
-build_graph(df, topic_column="topic_id")
-print("\n✅ Graph generated: test_case_graph.html")
-
-
-
+    print(df)
+    build_graph(df, topic_column="topic_id")

@@ -1,23 +1,21 @@
 from pyvis.network import Network
+import streamlit.components.v1 as components
 
 def build_graph(df, topic_column="topic_id"):
-    net = Network(height='600px', width='100%', bgcolor='#ffffff', font_color='black')
+    net = Network(height="600px", width="100%", notebook=False, bgcolor="#ffffff", font_color="black")
 
-    # Add topic nodes (orange boxes)
     topics = df[topic_column].unique()
-    for topic in topics:
-        net.add_node(f"Topic {topic}", label=f"Topic {topic}", shape='box', color='orange')
+    for t in topics:
+        net.add_node(f"Topic {t}", label=f"Topic {t}", color="orange", shape="dot", size=20)
 
-    # Add test case nodes and connect them to their topic
-    for idx, row in df.iterrows():
-        test_case = row['test_case']
-        topic = f"Topic {row[topic_column]}"
-        truncated_label = (test_case[:50] + "...") if len(test_case) > 50 else test_case
+    for _, row in df.iterrows():
+        net.add_node(row["test_case"], label=row["test_case"], color="lightblue", shape="box")
+        net.add_edge(f"Topic {row[topic_column]}", row["test_case"])
 
-        net.add_node(test_case, label=truncated_label, shape='ellipse', color='lightblue')
-        net.add_edge(topic, test_case)
+    # Render inside Streamlit instead of saving HTML
+    html = net.generate_html()
+    components.html(html, height=600, scrolling=True)
 
-    # Save graph
-    net.show('test_case_graph.html')
+
 
 
